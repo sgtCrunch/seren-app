@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+  <div class="quest-area">
+    <div class="quest">
+      <div class="points star-eight">{{ quest.points }}</div>
+      <a href="http://google.com">
+        <h1>{{ quest.name }}</h1>
+        <img class="quest-img" src="{{ quest.image }}">
+        <h3>{{ quest.address }}</h3>
+      </a>
+    </div>
+  </div>
+
+  <script>
+
+    $('.quest').fadeOut(2000);
+    
+    setTimeout(() => {
+      window.location= "/";
+    }, 2000);
+    
+  </script>
+
+{% endblock %}
+

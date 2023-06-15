@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-3">
+    <div class="user-area">
+      <div class="image-points">
+        <div class="points star-eight">{{ g.user.score }}</div>
+        <a href="">
+          <img src="{{ g.user.image_url }}"
+                alt="Image for {{ g.user.username }}"
+                class="card-image">    
+        </a>
+      </div>
+
+      <a href="" class="card-link">@{{ g.user.username }}</a>
+      <br>
+      <a href="/users/profile" class="card-link">Edit Profile</a>
+      <br>
+      <a href="/logout" class="card-link">Logout</a>
+      <br>
+      <a href="/leader-board" class="card-link">Leaderboard</a>
+      <br><br>
+      <form method="POST" action="">
+        <button id = "questTimer" class="btn btn-primary btn-lg btn-block" disabled>
+          {% if g.user.last_quest is not none %}
+          {{ json.dumps(g.user.last_quest.isoformat()) }}
+          {% else %}
+          New Quest
+          {% endif %}
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-xl-9">
+  <div class="quests">
+    <h4>Active Quests</h4>
+    <div class="quest-area">
+      {% for quest in quests %}
+        {% if quest.status == "In-progress" %}
+          <div class="quest">
+            <div class="points star-eight">{{ quest.points }}</div>
+            <h5>{{ quest.name }}</h5>
+            <img class="quest-img" src="{{ quest.image }}">
+            <h6>{{ quest.address }}</h6>
+            <h6 class="timer">{{ json.dumps(quest.timestamp.isoformat()) }}</h6>
+            <form method="POST" action="/quest/{{ quest.id }}">
+              <button class="btn btn-primary btn-lg btn-block">Complete</button>
+            </form>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="quests">
+    <h4>Completed Quests</h4>
+    <div class="quest-area">
+      {% for quest in quests %}
+        {% if quest.status == "Complete" %}
+          <div class="quest">
+            <div class="points star-eight">{{ quest.points }}</div>
+            <h5>{{ quest.name }}</h5>
+            <img class="quest-img" src="{{ quest.complete_image }}">
+            <h6>{{ quest.reflection }}</h6>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+</div>
+
+<script>
+
+  function timeLeft(diff){
+    
+    // get total seconds between the times
+    var delta = Math.abs(diff) / 1000;
+
+    // calculate (and subtract) whole hours
+    var hours = Math.floor(delta / 3600);
+    delta -= hours * 3600;
+
+    // calculate (and subtract) whole minutes
+    var minutes = Math.floor(delta / 60) % 60;
+    delta -= minutes * 60;
+
+    // what's left is seconds
+    var seconds = Math.floor(delta % 60);
+
+    return hours+"hr "+minutes+"m "+seconds + "s";
+  }
+
+  let expireTimes = [];
+  let newQuestTime;
+  
+
+  if(!$("#questTimer").text().includes("New Quest")){
+    
+    newQuestTime = new Date($("#questTimer").text().trim().split(".")[0].substring(1));
+    $("#questTimer").html('<i class="fa fa-spinner fa-spin"></i>');
+    newQuestTime.setHours(newQuestTime.getHours() + 24);
+    // newQuestTime.setMinutes(newQuestTime.getMinutes() + 1);
+
+    setInterval(() => {
+      let now = new Date();
+      let questTime = newQuestTime - now;
+      $btn = $("#questTimer");
+
+      if(questTime <= 0){
+        $btn.html("New Quest");
+        $btn.parent().attr("action", "/quest/new");
+        $btn.prop('disabled', false);
+      }
+      else{
+        let diff = timeLeft(questTime);
+        $btn.html("New Quest in: <br>" + diff);
+      }
+
+    }, 1000);
+  }
+  else{
+    $("#questTimer").parent().attr("action", "/quest/new");
+    $("#questTimer").prop('disabled', false);
+  }
+
+  $(".timer").each(function(){
+
+    let start = new Date($(this).text().trim().split(".")[0].substring(1));
+    start.setHours(start.getHours() + 48);
+    //start.setMinutes(start.getMinutes() + 1);
+
+    expireTimes.unshift(start);
+
+    let now = new Date();
+    let qTimer = start - now;
+
+    if(qTimer > 0){
+      let diff = timeLeft(qTimer);
+      $(this).text(diff);
+    }
+    else{
+      $(this).parent().remove();
+    }
+
+  });
+
+  setInterval(() => {
+    $(".timer").each(function(questIndex){
+      let now = new Date();
+      let diff = timeLeft(expireTimes[questIndex] - now);
+      $(this).text(diff);
+    });
+  }, 1000);
+
+</script>
+
+{% endblock %}
