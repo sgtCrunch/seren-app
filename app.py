@@ -226,7 +226,7 @@ def new_quest():
             timestamp=datetime.datetime.now(datetime.timezone.utc))
     except:
         flash("ERROR fetching Quest Try Again")
-        redirect("/")
+        return redirect("/")
         
     g.user.quests.append(qst)
     db.session.commit()
