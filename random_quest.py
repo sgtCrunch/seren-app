@@ -1,6 +1,6 @@
 import requests
 from random import choice, randint
-#from keys import Yelp_API_Key, IP_KEY
+from keys import Yelp_API_Key, IP_KEY
 from ipinfo import getHandler
 from geopy import distance
 from urllib.parse import quote
@@ -10,8 +10,6 @@ API_HOST = 'https://api.yelp.com'
 SEARCH_PATH = '/v3/businesses/search'
 BUSINESS_PATH = '/v3/businesses/'  # Business ID will come after slash.
 SEARCH_LIMIT = 50
-Yelp_API_Key = "dklfjsd"
-IP_KEY = "dlkjfdslkfjs"
 
 def get_user_location(ip):
     """Use user IP to get user location lat and lon"""
