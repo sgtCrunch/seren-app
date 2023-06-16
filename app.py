@@ -1,4 +1,4 @@
-import os, requests, datetime, json
+import os, requests, datetime, json, sys
 
 from flask import Flask, render_template, request, flash, redirect, session, g, url_for
 from flask_debugtoolbar import DebugToolbarExtension
@@ -226,7 +226,9 @@ def new_quest():
             timestamp=datetime.datetime.now(datetime.timezone.utc))
     except Exception as e:
         flash("ERROR fetching Quest Try Again")
-        print(e)
+        exc_type, exc_obj, exc_tb = sys.exc_info()
+        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
+        print(exc_type, fname, exc_tb.tb_lineno)
         return redirect("/")
         
     g.user.quests.append(qst)
