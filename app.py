@@ -224,8 +224,9 @@ def new_quest():
             image=quest['image_url'], 
             points=quest['points'],
             timestamp=datetime.datetime.now(datetime.timezone.utc))
-    except:
+    except Exception as e:
         flash("ERROR fetching Quest Try Again")
+        print("Quest Error " + e)
         return redirect("/")
         
     g.user.quests.append(qst)
