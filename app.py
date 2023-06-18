@@ -217,6 +217,7 @@ def new_quest():
         return redirect("/")
     
     try:
+        print(request.remote_addr)
         quest = fetch_quest(request.remote_addr)
         qst = Quest(
             name=quest["name"], 
