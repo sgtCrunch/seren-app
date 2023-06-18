@@ -8,12 +8,16 @@ from sqlalchemy import or_
 from forms import UserAddForm, LoginForm, UserUpdateForm, CompleteQuest
 from models import db, connect_db, User, Quest
 from random_quest import fetch_quest
+from werkzeug.middleware.proxy_fix import ProxyFix
 
 import data_url
 
 CURR_USER_KEY = "curr_user"
 
 app = Flask(__name__)
+
+# App is behind one proxy that sets the -For and -Host headers.
+app.wsgi_app = ProxyFix(app, x_for=1, x_host=1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///seren'))
