@@ -410,7 +410,7 @@ img{
     height: 3vw;
     width: 3vw;
     z-index: -1;
-    background: #0077b7;
+    background: #39dcaebd;
     transform: rotate(135deg);
   }
 }
