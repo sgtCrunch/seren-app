@@ -17,7 +17,7 @@ CURR_USER_KEY = "curr_user"
 app = Flask(__name__)
 
 # App is behind one proxy that sets the -For and -Host headers.
-app.wsgi_app = ProxyFix(app, x_for=1, x_host=1)
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_host=1)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = (
     os.environ.get('DATABASE_URL', 'postgresql:///seren'))
