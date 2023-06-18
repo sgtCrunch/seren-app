@@ -222,8 +222,8 @@ def new_quest():
         return redirect("/")
     
     try:
-        print(request.access_route[-1])
-        quest = fetch_quest(request.access_route[-1])
+        print(request.access_route)
+        quest = fetch_quest(request.remote_addr)
         qst = Quest(
             name=quest["name"], 
             address=" ".join(quest['location']['display_address']), 
