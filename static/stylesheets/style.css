@@ -344,7 +344,7 @@ img{
   border-radius: 5px;
   border: none;
   position: relative;
-  background: rgba(119, 162, 171, 0.301);
+  background: #91edc27b;
   margin-top: 20px;
   text-align: center;
   padding: 20px;
@@ -353,13 +353,13 @@ img{
 
 .user-area {
   margin-top: 5vw;
-  background-color: #80808029;
+  background-color: #91edc238;
   border-radius: 10px;
   padding: 20px;
 }
 
 .quests{
-  background-color: rgba(128, 128, 128, 0.114);
+  background-color: #91edc238;
   text-align: center;
   margin-top: 5vw;
   border-radius: 10px;
@@ -396,7 +396,7 @@ img{
 }
             
 .star-eight {
-  background: #016455;
+  background: #39dcaebd;
   width: 3vw;
   height: 3vw;
   text-align: center;

@@ -17,8 +17,10 @@ def get_user_location(ip):
     try:
         handler = getHandler(access_token=IP_KEY)
         details = handler.getDetails(ip_address=ip)
+        print(details)
         return details.latitude, details.longitude
     except Exception as e:
+        print('location was not found')
         return "Location not found"
 
 def query_destinations(lat, lon):
@@ -71,7 +73,7 @@ def fetch_quest(user_ip):
     """Query destinations and then randomly select a business and request its info from Yelp"""
 
     loc = get_user_location(user_ip)
-    if loc is str: return "INVALID IP"
+    if type(loc) is str: return "INVALID IP"
 
     lat, lon = loc
     businesses = query_destinations(lat, lon)

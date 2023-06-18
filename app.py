@@ -1,3 +1,4 @@
+from traceback import print_exception
 import os, requests, datetime, json, sys
 
 from flask import Flask, render_template, request, flash, redirect, session, g, url_for
@@ -229,7 +230,8 @@ def new_quest():
         flash("ERROR fetching Quest Try Again")
         exc_type, exc_obj, exc_tb = sys.exc_info()
         fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-        print(exc_type, fname, exc_tb.tb_lineno)
+        print_exception(exc_obj)
+        print(exc_type, fname, exc_tb)
         return redirect("/")
         
     g.user.quests.append(qst)
@@ -292,7 +294,9 @@ def homepage():
                 .all())
         
         for quest in active_quests:
-            if (datetime.datetime.now(datetime.timezone.utc) - quest.timestamp.replace(tzinfo=datetime.timezone.utc)).days >= 2:
+            if (datetime.datetime.now(datetime.timezone.utc) - 
+                quest.timestamp.replace(tzinfo=datetime.timezone.utc)).days >= 2:
+
                 quest.status = "Expired"
         
         db.session.commit()
