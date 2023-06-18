@@ -222,8 +222,7 @@ def new_quest():
         return redirect("/")
     
     try:
-        print(request.access_route)
-        quest = fetch_quest(request.remote_addr)
+        quest = fetch_quest(request.access_route[0])
         qst = Quest(
             name=quest["name"], 
             address=" ".join(quest['location']['display_address']), 
@@ -233,9 +232,7 @@ def new_quest():
     except Exception as e:
         flash("ERROR fetching Quest Try Again")
         exc_type, exc_obj, exc_tb = sys.exc_info()
-        fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
         print_exception(exc_obj)
-        print(exc_type, fname, exc_tb)
         return redirect("/")
         
     g.user.quests.append(qst)
