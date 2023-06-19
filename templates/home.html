@@ -5,7 +5,7 @@
   <div class="col-md-3">
     <div class="user-area">
       <div class="image-points">
-        <div class="points star-eight">{{ g.user.score }}</div>
+        <div class="points-user star-eight">{{ g.user.score }}</div>
         <a href="">
           <img src="{{ g.user.image_url }}"
                 alt="Image for {{ g.user.username }}"
@@ -13,7 +13,7 @@
         </a>
       </div>
 
-      <a href="" class="card-link">@{{ g.user.username }}</a>
+      <a class="card-link">@{{ g.user.username }}</a>
       <br>
       <a href="/users/profile" class="card-link">Edit Profile</a>
       <br>
@@ -100,6 +100,7 @@
   if(!$("#questTimer").text().includes("New Quest")){
     
     newQuestTime = new Date($("#questTimer").text().trim().split(".")[0].substring(1));
+    console.log(newQuestTime);
     $("#questTimer").html('<i class="fa fa-spinner fa-spin"></i>');
     newQuestTime.setHours(newQuestTime.getHours() + 24);
     // newQuestTime.setMinutes(newQuestTime.getMinutes() + 1);

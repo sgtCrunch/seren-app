@@ -19,16 +19,14 @@ img{
 @keyframes pulse {
 
   0%{
-    box-shadow: 0px 0px 4px 5px;
+    box-shadow: 0px 0px 4px 5px white;
   }
 
   100%{
-    box-shadow: 0px 0px 4px 0px;
+    box-shadow: 0px 0px 4px 0px white;
   }
 
 }
-
-
 
 .form-control {
   margin-bottom: 20px;
@@ -41,7 +39,7 @@ img{
 
 .btn {
   border-radius: 50px;
-  background-color: #88f7cb6b;
+  background-color: #58daef63;
   border: none;
 }
 
@@ -49,7 +47,17 @@ img{
   cursor: pointer;
   background-color: #88f7cbb6;
   border: none;
+}
 
+.btn:disabled {
+  background-color: #88f7cbb6;
+  border: none;
+}
+
+.btn:focus {
+  cursor: pointer;
+  background-color: #88f7cbb6;
+  border: none;
 }
 
 .container{
@@ -386,7 +394,7 @@ img{
   position: relative;
 }
 
-.points {
+.points-user {
   position: absolute;
   top: -0.5vw;
   right: 3vw;
@@ -394,9 +402,18 @@ img{
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color:white;
 }
+
+.points{
+  position: absolute;
+  top: -1vw;
+  right: -1vw;
+  font-size: 2vw;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color:white;
+}
             
 .star-eight {
-  background: #39dcaebd;
+  background: #39d3dcbd;
   width: 3vw;
   height: 3vw;
   text-align: center;
@@ -410,7 +427,7 @@ img{
     height: 3vw;
     width: 3vw;
     z-index: -1;
-    background: #39dcaebd;
+    background: #39d3dcbd;
     transform: rotate(135deg);
   }
 }
@@ -571,6 +588,10 @@ p.card-bio {
   font-size: 18px;
   font-weight: bold;
   padding: 12px;
+}
+
+#user_form{
+  padding-top: 10vh;
 }
 
 /* =========================== Edit Page */

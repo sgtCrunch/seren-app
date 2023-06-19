@@ -14,6 +14,9 @@ SEARCH_LIMIT = 50
 def get_user_location(ip):
     """Use user IP to get user location lat and lon"""
 
+    if ip == "127.0.0.1":
+        ip = "103.192.80.181"
+
     try:
         handler = getHandler(access_token=IP_KEY)
         details = handler.getDetails(ip_address=ip)
